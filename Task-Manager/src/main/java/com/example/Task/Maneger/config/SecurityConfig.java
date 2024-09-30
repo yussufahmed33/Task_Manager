@@ -44,7 +44,7 @@ return new BCryptPasswordEncoder();
             throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder()) // Use a password encoder
+                .passwordEncoder(passwordEncoder()) 
                 .and()
                 .build();
     }
