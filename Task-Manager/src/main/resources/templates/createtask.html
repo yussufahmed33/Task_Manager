@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Task</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Create a New Task</h2>
+
+    <!-- Task Creation Form -->
+    <form th:action="@{/tasks/create}" method="post" th:object="${taskModel}">
+        <!-- Title Field -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Task Title</label>
+            <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Enter task title" required>
+        </div>
+
+        <!-- Description Field -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Task Description</label>
+            <textarea th:field="*{description}" class="form-control" id="description" rows="3" placeholder="Enter task description" required></textarea>
+        </div>
+
+        <!-- Expiration Date Field -->
+        <div class="mb-3">
+            <label for="expiredDate" class="form-label">Expiration Date</label>
+            <input type="date" th:field="*{expiredDate}" class="form-control" id="expiredDate" required>
+        </div>
+
+        <!-- Status Field -->
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select th:field="*{status}" class="form-select" id="status" required>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success">Create Task</button>
+    </form>
+
+    <!-- Optional link back to task list or home page -->
+    <a th:href="@{/tasks}" class="btn btn-secondary mt-3">Back to My Tasks</a>
+</div>
+
+<!-- Bootstrap JS (optional for responsiveness) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
