@@ -84,9 +84,9 @@ public class TaskController {
     @GetMapping("/tasks/edit/{id}")
     public String getEditTask(@PathVariable long id, Model model, Principal principal) {
 
-        TaskModel taskModel = tasksRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid task ID"));
+        TaskModel taskModel = tasksRepository.findById(id).get(); //.orElseThrow(() -> new IllegalArgumentException("Invalid task ID"));
 
-        if (principal.getName().equals(tasksRepository.findById(id).get().getUserModel().getUsername()) && tasksRepository.findById(id) != null) {
+        if (principal.getName().equals(tasksRepository.findById(id).get().getUserModel().getUsername()) && tasksRepository.findById(id).isPresent()) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formattedDate = taskModel.getExpiredDate().format(formatter);
             model.addAttribute("task", taskModel);
