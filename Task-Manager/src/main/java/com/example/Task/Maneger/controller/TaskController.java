@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
@@ -81,23 +82,29 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
-    @GetMapping("/tasks/edit/{id}")
-    public String getEditTask(@PathVariable long id, Model model, Principal principal) {
+        @GetMapping("/tasks/edit/{id}")
 
-        TaskModel taskModel = tasksRepository.findById(id).get(); //.orElseThrow(() -> new IllegalArgumentException("Invalid task ID"));
+        public String getEditTask ( @PathVariable long id, Model model, Principal principal){
+try {
+    TaskModel taskModel = tasksRepository.findById(id).get(); //.orElseThrow(() -> new IllegalArgumentException("Invalid task ID"));
 
-        if (principal.getName().equals(tasksRepository.findById(id).get().getUserModel().getUsername()) && tasksRepository.findById(id).isPresent()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedDate = taskModel.getExpiredDate().format(formatter);
-            model.addAttribute("task", taskModel);
-            model.addAttribute("formattedExpiredDate", formattedDate);
+    if (principal.getName().equals(tasksRepository.findById(id).get().getUserModel().getUsername())) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = taskModel.getExpiredDate().format(formatter);
+        model.addAttribute("task", taskModel);
+        model.addAttribute("formattedExpiredDate", formattedDate);
 
-            return "edittask";
-        } else {
-            return "redirect:/tasks";
+        return "edittask";
+    } else {
+        return "redirect:/tasks";
 
-        }
-        }
+    }
+}catch (NoSuchElementException e){
+    return "redirect:/tasks";
+}
+    }
+
+
 
 
 }
