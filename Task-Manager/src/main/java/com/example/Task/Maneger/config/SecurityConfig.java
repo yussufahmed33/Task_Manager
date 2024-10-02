@@ -24,8 +24,11 @@ return new BCryptPasswordEncoder();
     SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .requestMatchers("/login,/register,/css/**,/js/**").permitAll()
+
+                .requestMatchers("/login","/register","/css/**","/js/**").permitAll()
                 .anyRequest().authenticated()
+                //.anyRequest().authenticated()
+               // .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")
                 .permitAll()

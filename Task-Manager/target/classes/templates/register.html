@@ -34,6 +34,10 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -59,10 +63,13 @@
                 <label for="username" class="form-label">Username</label>
                 <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Enter a username" required>
             </div>
+
+            <!-- Email -->
             <div class="mb-3">
                 <label for="email" class="form-label">E-Mail</label>
-                <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Enter a E-Mail" required>
+                <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Enter an E-Mail" required>
             </div>
+
             <!-- Password -->
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -72,6 +79,11 @@
             <!-- Submit Button -->
             <button type="submit" class="btn btn-custom">Register</button>
         </form>
+
+        <!-- Go to Login Page Link -->
+        <div class="login-link">
+            <p>Already have an account? <a th:href="@{/login}">Go to Login</a></p>
+        </div>
     </div>
 </div>
 
