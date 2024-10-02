@@ -34,9 +34,7 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public String home(UserModel userModel, Model model, Principal principal) {
-        UserModel userModel1 = usersRepository.findByUsername(principal.getName());
-        List<TaskModel> userTasks = tasksRepository.findByUserModel(userModel1);
-        model.addAttribute("userTasks", userTasks);
+       taskService.showTasks(principal, model);
         return "tasks";
     }
 

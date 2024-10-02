@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -24,6 +25,11 @@ public class TaskService {
     UsersRepository usersRepository;
     @Autowired
     EmailService emailService;
+    public void showTasks(Principal principal, Model model){
+        UserModel userModel1 = usersRepository.findByUsername(principal.getName());
+        List<TaskModel> userTasks = tasksRepository.findByUserModel(userModel1);
+        model.addAttribute("userTasks", userTasks);
+    }
 public String getedittask( long id, Model model, Principal principal){
     try {
         TaskModel taskModel = tasksRepository.findById(id).get(); //.orElseThrow(() -> new IllegalArgumentException("Invalid task ID"));
