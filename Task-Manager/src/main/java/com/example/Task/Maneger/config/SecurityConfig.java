@@ -27,8 +27,6 @@ return new BCryptPasswordEncoder();
 
                 .requestMatchers("/login","/register","/css/**","/js/**").permitAll()
                 .anyRequest().authenticated()
-                //.anyRequest().authenticated()
-               // .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")
                 .permitAll()
