@@ -46,7 +46,6 @@ public void sendEmail(String to, String subject, String text) {
                     + "Your Task Management Team";
 
             sendEmail(email, subject, text);
-            System.out.println("email sent");
         }
     }
 }

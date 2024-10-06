@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+    private  static final String login="/login";
     @Autowired
     UserDetailsService userDetailsService;
     @Bean
@@ -25,12 +26,12 @@ return new BCryptPasswordEncoder();
         http
                 .authorizeRequests()
 
-                .requestMatchers("/login","/register","/css/**","/js/**").permitAll()
+                .requestMatchers(login,"/register","/css/**","/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
-                .loginPage("/login")
+                .loginPage(login)
                 .permitAll()
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl(login)
                 .defaultSuccessUrl("/",true)
                 .and()
                 .logout()

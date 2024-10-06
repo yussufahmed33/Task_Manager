@@ -13,8 +13,8 @@ public class UserModel {
             @Id
             @GeneratedValue(strategy = GenerationType.IDENTITY)
             private long id;
-    public String username;
-    public String password;
+    private String username;
+    private String password;
     private String firstName;
     private String lastName;
     private String email;
