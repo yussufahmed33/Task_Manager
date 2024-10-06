@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 
 @Service
 public class TaskService {
-    private static final String Tasks_Redirect="redirect:/tasks";
+    private static final String TASKS_REDIRECT="redirect:/tasks";
     @Autowired
     TasksRepository tasksRepository;
     @Autowired
@@ -43,11 +43,11 @@ public String getedittask( long id, Model model, Principal principal){
 
             return "edittask";
         } else {
-            return Tasks_Redirect;
+            return TASKS_REDIRECT;
 
         }
     }catch (NoSuchElementException e){
-        return Tasks_Redirect;
+        return TASKS_REDIRECT;
     }
 }
 public String edittask( long id, Model model, TaskModel taskModel, TaskModel updatedTaskModel, Principal principal){
@@ -58,7 +58,7 @@ public String edittask( long id, Model model, TaskModel taskModel, TaskModel upd
     existingTaskModel.setExpiredDate(updatedTaskModel.getExpiredDate());
     existingTaskModel.setStatus(updatedTaskModel.getStatus());
     tasksRepository.save(existingTaskModel);
-    return Tasks_Redirect;
+    return TASKS_REDIRECT;
 }
 
 
@@ -79,6 +79,6 @@ public String edittask( long id, Model model, TaskModel taskModel, TaskModel upd
                 // +"\n\n your task link is: https://localhost:9080/tasks/" + task.getId() + "/"
                 + "\n\nBest regards,\nTask Manager Team";
         emailService.sendEmail(email, subject, text);
-        return Tasks_Redirect;
+        return TASKS_REDIRECT;
     }
 }
