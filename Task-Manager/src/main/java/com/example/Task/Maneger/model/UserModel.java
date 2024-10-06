@@ -2,7 +2,6 @@ package com.example.Task.Maneger.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.HashSet;
 import java.util.Set;
 

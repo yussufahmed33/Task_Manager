@@ -1,6 +1,6 @@
 package com.example.Task.Maneger.service;
 
-import com.example.Task.Maneger.config.UserDetailesService;
+
 import com.example.Task.Maneger.model.TaskModel;
 import com.example.Task.Maneger.model.UserModel;
 import com.example.Task.Maneger.repository.TasksRepository;
@@ -10,7 +10,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 

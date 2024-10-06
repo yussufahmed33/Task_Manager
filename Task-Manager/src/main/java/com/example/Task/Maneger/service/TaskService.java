@@ -7,9 +7,6 @@ import com.example.Task.Maneger.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -50,7 +47,7 @@ public String getedittask( long id, Model model, Principal principal){
         return TASKS_REDIRECT;
     }
 }
-public String edittask( long id, Model model, TaskModel taskModel, TaskModel updatedTaskModel, Principal principal){
+public String edittask( long id, TaskModel updatedTaskModel){
 
     TaskModel existingTaskModel = tasksRepository.findById(id).get();
     existingTaskModel.setTitle(updatedTaskModel.getTitle());
@@ -76,7 +73,6 @@ public String edittask( long id, Model model, TaskModel taskModel, TaskModel upd
         String subject = "Task Creation Successful!";
         String text = "Dear User,\n\nYour task \"" + task.getTitle() + "\" has been successfully created!"
                 + "\n\nYou can now view and manage your tasks in the Task Manager."
-                // +"\n\n your task link is: https://localhost:9080/tasks/" + task.getId() + "/"
                 + "\n\nBest regards,\nTask Manager Team";
         emailService.sendEmail(email, subject, text);
         return TASKS_REDIRECT;
