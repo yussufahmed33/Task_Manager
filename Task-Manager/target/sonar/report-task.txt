@@ -2,5 +2,5 @@ projectKey=com.example:Task-Maneger
 serverUrl=http://localhost:9000
 serverVersion=10.7.0.96327
 dashboardUrl=http://localhost:9000/dashboard?id=com.example%3ATask-Maneger
-ceTaskId=ef9a7375-f175-4ac5-819c-663590c60227
-ceTaskUrl=http://localhost:9000/api/ce/task?id=ef9a7375-f175-4ac5-819c-663590c60227
+ceTaskId=deacc73d-d644-4886-94ba-a1f18fedc4c4
+ceTaskUrl=http://localhost:9000/api/ce/task?id=deacc73d-d644-4886-94ba-a1f18fedc4c4
