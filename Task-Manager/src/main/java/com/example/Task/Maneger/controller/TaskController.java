@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Controller
 public class TaskController {
-    private static final String tasksRedirect="redirect:/tasks";
+    private static final String Tasks_Redirect="redirect:/tasks";
     @Autowired
     TasksRepository tasksRepository;
     @Autowired
@@ -42,7 +42,7 @@ public class TaskController {
     @PostMapping("/tasks/create")
     public String createTask(@ModelAttribute TaskModel task, Principal principal) {
        taskService.createTask(task, principal);
-       return tasksRedirect;
+       return Tasks_Redirect;
     }
 
     @GetMapping("/tasks/create")
@@ -54,13 +54,13 @@ public class TaskController {
     @PostMapping("/tasks/delete/{id}")
     public String deleteTask(@PathVariable long id) {
         tasksRepository.deleteById(id);
-        return tasksRedirect;
+        return Tasks_Redirect;
     }
 
     @PostMapping("/tasks/edit/{id}")
     public String editTask(@PathVariable long id, Model model, TaskModel taskModel, @ModelAttribute("task") TaskModel updatedTaskModel, Principal principal) {
        taskService.edittask(id, model, taskModel, updatedTaskModel, principal);
-       return tasksRedirect;
+       return Tasks_Redirect;
     }
 
         @GetMapping("/tasks/edit/{id}")
