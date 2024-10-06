@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,33 +20,35 @@ public class EmailService {
     private TasksRepository tasksRepository;
     @Autowired
     private JavaMailSender mailSender;
-    @Async
-public void sendEmail(String to, String subject, String text) {
-    SimpleMailMessage message = new SimpleMailMessage();
-    message.setTo(to);
-    message.setSubject(subject);
-    message.setText(text);
-    mailSender.send(message);
-}
-@Scheduled(cron = "0 32 12 * * ?")
-    public void checkTasksForDueDate() {
-    List<TaskModel> tasks = tasksRepository.findAll();
-    LocalDate today = LocalDate.now();
-    for (TaskModel task : tasks) {
-        if( task.getExpiredDate().isEqual(today)) {
-            UserModel user = task.getUserModel();
-            String email = user.getEmail();
-            String subject = "Reminder: Task '" + task.getTitle() + "' is Due Today";
-            String text = "Hello " + user.getUsername() + ",\n\n"
-                    + "This is a reminder that the following task is due today:\n\n"
-                    + "Task: " + task.getTitle() + "\n"
-                    + "Description: " + task.getDescription() + "\n\n"
-                    + "Please ensure that it is completed on time.\n\n"
-                    + "Best regards,\n"
-                    + "Your Task Management Team";
 
-            sendEmail(email, subject, text);
+    @Async
+    public void sendEmail(String to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        mailSender.send(message);
+    }
+
+    @Scheduled(cron = "0 32 12 * * ?")
+    public void checkTasksForDueDate() {
+        List<TaskModel> tasks = tasksRepository.findAll();
+        LocalDate today = LocalDate.now();
+        for (TaskModel task : tasks) {
+            if (task.getExpiredDate().isEqual(today)) {
+                UserModel user = task.getUserModel();
+                String email = user.getEmail();
+                String subject = "Reminder: Task '" + task.getTitle() + "' is Due Today";
+                String text = "Hello " + user.getUsername() + ",\n\n"
+                        + "This is a reminder that the following task is due today:\n\n"
+                        + "Task: " + task.getTitle() + "\n"
+                        + "Description: " + task.getDescription() + "\n\n"
+                        + "Please ensure that it is completed on time.\n\n"
+                        + "Best regards,\n"
+                        + "Your Task Management Team";
+
+                sendEmail(email, subject, text);
+            }
         }
     }
-}
 }

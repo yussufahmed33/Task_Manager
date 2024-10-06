@@ -21,17 +21,20 @@ public class UserController {
     EmailService emailService;
     @Autowired
     UserService userService;
+
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new UserModel());
         return "register";
     }
+
     @PostMapping("/register")
     public void register(UserModel user, Model model) {
-       userService.register(user,model);
+        userService.register(user, model);
     }
+
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 }

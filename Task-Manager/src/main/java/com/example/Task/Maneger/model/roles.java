@@ -6,13 +6,13 @@ import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Data
-@Table(name ="roles")
+@Table(name = "roles")
 public class roles implements GrantedAuthority {
-@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-@Column(nullable = false, unique = true)
-private String roleName;
+    @Column(nullable = false, unique = true)
+    private String roleName;
 
 
     @Override

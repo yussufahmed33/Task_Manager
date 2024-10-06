@@ -13,39 +13,41 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-    private  static final String LOGIN="/login";
+    private static final String LOGIN = "/login";
     @Autowired
     UserDetailsService userDetailsService;
+
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
-return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
+
     @Bean
     SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
 
-                .requestMatchers(LOGIN,"/register","/css/**","/js/**").permitAll()
+                .requestMatchers(LOGIN, "/register", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage(LOGIN)
                 .permitAll()
                 .loginProcessingUrl(LOGIN)
-                .defaultSuccessUrl("/",true)
+                .defaultSuccessUrl("/", true)
                 .and()
                 .logout()
                 .permitAll();
 
 
-
         return http.build();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http)
             throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder()) 
+                .passwordEncoder(passwordEncoder())
                 .and()
                 .build();
     }

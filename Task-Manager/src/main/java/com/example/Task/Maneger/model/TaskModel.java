@@ -2,6 +2,7 @@ package com.example.Task.Maneger.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+
 import java.time.LocalDate;
 
 @Entity
@@ -16,6 +17,6 @@ public class TaskModel {
     private LocalDate expiredDate;
     private String status;
     @ManyToOne()
-              @JoinColumn(name = "user_id",nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserModel userModel;
 }

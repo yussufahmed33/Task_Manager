@@ -7,6 +7,7 @@ import com.example.Task.Maneger.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.NoSuchElementException;
 
 @Service
 public class TaskService {
-    private static final String TASKS_REDIRECT="redirect:/tasks";
+    private static final String TASKS_REDIRECT = "redirect:/tasks";
     @Autowired
     TasksRepository tasksRepository;
     @Autowired
@@ -23,43 +24,46 @@ public class TaskService {
     UsersRepository usersRepository;
     @Autowired
     EmailService emailService;
-    public void showTasks(Principal principal, Model model){
+
+    public void showTasks(Principal principal, Model model) {
         UserModel userModel1 = usersRepository.findByUsername(principal.getName());
         List<TaskModel> userTasks = tasksRepository.findByUserModel(userModel1);
         model.addAttribute("userTasks", userTasks);
     }
-public String getedittask( long id, Model model, Principal principal){
-    try {
-        TaskModel taskModel = tasksRepository.findById(id).get(); //.orElseThrow(() -> new IllegalArgumentException("Invalid task ID"));
 
-        if (principal.getName().equals(tasksRepository.findById(id).get().getUserModel().getUsername())) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedDate = taskModel.getExpiredDate().format(formatter);
-            model.addAttribute("task", taskModel);
-            model.addAttribute("formattedExpiredDate", formattedDate);
+    public String getedittask(long id, Model model, Principal principal) {
+        try {
+            TaskModel taskModel = tasksRepository.findById(id).get(); //.orElseThrow(() -> new IllegalArgumentException("Invalid task ID"));
 
-            return "edittask";
-        } else {
+            if (principal.getName().equals(tasksRepository.findById(id).get().getUserModel().getUsername())) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String formattedDate = taskModel.getExpiredDate().format(formatter);
+                model.addAttribute("task", taskModel);
+                model.addAttribute("formattedExpiredDate", formattedDate);
+
+                return "edittask";
+            } else {
+                return TASKS_REDIRECT;
+
+            }
+        } catch (NoSuchElementException e) {
             return TASKS_REDIRECT;
-
         }
-    }catch (NoSuchElementException e){
+    }
+
+    public String edittask(long id, TaskModel updatedTaskModel) {
+
+        TaskModel existingTaskModel = tasksRepository.findById(id).get();
+        existingTaskModel.setTitle(updatedTaskModel.getTitle());
+        existingTaskModel.setDescription(updatedTaskModel.getDescription());
+        existingTaskModel.setExpiredDate(updatedTaskModel.getExpiredDate());
+        existingTaskModel.setStatus(updatedTaskModel.getStatus());
+        tasksRepository.save(existingTaskModel);
         return TASKS_REDIRECT;
     }
-}
-public String edittask( long id, TaskModel updatedTaskModel){
-
-    TaskModel existingTaskModel = tasksRepository.findById(id).get();
-    existingTaskModel.setTitle(updatedTaskModel.getTitle());
-    existingTaskModel.setDescription(updatedTaskModel.getDescription());
-    existingTaskModel.setExpiredDate(updatedTaskModel.getExpiredDate());
-    existingTaskModel.setStatus(updatedTaskModel.getStatus());
-    tasksRepository.save(existingTaskModel);
-    return TASKS_REDIRECT;
-}
 
 
-    public String createTask(TaskModel task,Principal principal) {
+    public String createTask(TaskModel task, Principal principal) {
         String username = principal.getName();
         UserModel user = usersRepository.findByUsername(username);
 

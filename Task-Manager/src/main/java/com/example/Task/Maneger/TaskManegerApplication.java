@@ -9,8 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableAsync
 public class TaskManegerApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(TaskManegerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TaskManegerApplication.class, args);
+    }
 
 }
