@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfig {
@@ -27,7 +28,13 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
 
-                .requestMatchers(LOGIN, "/register", "/css/**", "/js/**").permitAll()
+                .requestMatchers(
+                        new AntPathRequestMatcher(LOGIN),
+                        new AntPathRequestMatcher("/register"),
+                        new AntPathRequestMatcher("/css/**"),
+                        new AntPathRequestMatcher("/js/**")
+                ).permitAll()
+                        //LOGIN, "/register", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage(LOGIN)

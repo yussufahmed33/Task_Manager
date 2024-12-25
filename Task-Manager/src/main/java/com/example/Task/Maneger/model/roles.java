@@ -1,8 +1,10 @@
 package com.example.Task.Maneger.model;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+
+import javax.persistence.*;
 
 @Entity
 @Data

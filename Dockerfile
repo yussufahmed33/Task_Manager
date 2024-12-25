@@ -1,23 +1,12 @@
-#FROM openjdk:11
-#COPY . /usr/src/myapp
-#WORKDIR /usr/src/myapp/src/main/java/com/example/Task/Maneger
-#RUN javac TaskManegerApplication.java
-#CMD ["java", "TaskManegerApplication"]
-#
+# Install Maven
+FROM maven:3.8.6-openjdk-11 as build
 
-FROM openjdk:11
+# Set the working directory
+WORKDIR /usr/src/myapp
 
-# Copy the whole project to the container's directory
+# Copy the project files and run Maven to build the project
 COPY . /usr/src/myapp
+#RUN mvn clean package
 
-# Set the working directory to where your Java source files are located
-WORKDIR /usr/src/myapp/Task-Manager/src/main/java/com/example/Task/Maneger
-
-# List the files in the working directory (for debugging purposes)
-RUN ls -alh
-
-# Compile the Java code
-RUN javac TaskManegerApplication.java
-
-# Run the Java application
-CMD ["java", "TaskManegerApplication"]
+# Run the JAR file (assuming you have a JAR file named task-manager.jar)
+CMD ["java", "-jar", "/usr/src/myapp/target/task-manager-0.0.1-SNAPSHOT.jar"]
