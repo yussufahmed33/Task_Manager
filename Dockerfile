@@ -1,16 +1,23 @@
+#FROM openjdk:11
+#COPY . /usr/src/myapp
+#WORKDIR /usr/src/myapp/src/main/java/com/example/Task/Maneger
+#RUN javac TaskManegerApplication.java
+#CMD ["java", "TaskManegerApplication"]
+#
 
+FROM openjdk:11
 
-# Use an official Java runtime as a parent image
-FROM openjdk:17-jdk-slim
+# Copy the whole project to the container's directory
+COPY . /usr/src/myapp
 
-# Set the working directory inside the container
-WORKDIR /Task_Manager
+# Set the working directory to where your Java source files are located
+WORKDIR /usr/src/myapp/Task-Manager/src/main/java/com/example/Task/Maneger
 
-# Copy the application's JAR file into the container
-COPY target/Task-Maneger-0.0.1-SNAPSHOT.jar app.jar
+# List the files in the working directory (for debugging purposes)
+RUN ls -alh
 
-# Expose the port your application will run on
-EXPOSE 8080
+# Compile the Java code
+RUN javac TaskManegerApplication.java
 
-# Define the command to run your application
-CMD ["java", "-jar", "app.jar"]
+# Run the Java application
+CMD ["java", "TaskManegerApplication"]
