@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for task-manager-vbourw on 2024-12-25T16:10:08Z
+# fly.toml app configuration file generated for task-manager-64xm-a on 2024-12-25T19:44:18Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'task-manager-vbourw'
+app = 'task-manager-64xm-a'
 primary_region = 'cdg'
 
 [build]
@@ -13,7 +13,7 @@ primary_region = 'cdg'
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 1
+  min_machines_running = 0
   processes = ['app']
 
 [[vm]]
