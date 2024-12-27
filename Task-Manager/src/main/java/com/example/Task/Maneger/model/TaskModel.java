@@ -1,10 +1,10 @@
 package com.example.Task.Maneger.model;
 
-//import jakarta.persistence.*;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.persistence.Table;
+//import javax.persistence.*;
+//import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
